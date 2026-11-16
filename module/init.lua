@@ -15,8 +15,8 @@ local JNE_SHORT, JMP_SHORT = 0x75, 0xEB
 local M = {}
 
 function M:enable()
-  local site = core.scanForAOB(ALREADY_RUNNING_AOB)
-  if site == nil or site == 0 then
+  local ok, site = pcall(core.scanForAOB, ALREADY_RUNNING_AOB)
+  if not ok or site == nil or site == 0 then
     log(WARNING, "multiple-games: the already-running check was not found; the game stays single")
     return
   end
